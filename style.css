@@ -30,9 +30,38 @@ canvas {
   transition: opacity 1s ease;
 }
 
-h1 { font-size: 2.5em; text-shadow: 0 0 20px #ff5f8f; }
-p  { margin-top: 10px; font-size: 1.2em; color: #ffe3e3; }
+h1 {
+  font-size: 2.5em;
+  text-shadow: 0 0 20px #ff5f8f;
+}
 
+p {
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: #ffe3e3;
+}
+
+/* Scene animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.scene h1, .scene p {
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.scene p {
+  animation-delay: 0.5s;
+}
+
+/* Buttons */
 .buttons {
   margin-top: 40px;
   display: flex;
@@ -49,10 +78,27 @@ button {
   cursor: pointer;
   transition: 0.3s;
 }
+
 button:hover { background: rgba(255,255,255,0.4); }
 button:disabled { opacity: 0.4; cursor: not-allowed; }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Responsive for phones */
+@media (max-width: 600px) {
+  h1 { font-size: 1.8em; }
+  p  { font-size: 1em; }
+
+  .container {
+    width: 90%;
+    padding: 10px;
+  }
+
+  button {
+    font-size: 0.9em;
+    padding: 8px 16px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
