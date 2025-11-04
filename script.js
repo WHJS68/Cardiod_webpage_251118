@@ -1,63 +1,75 @@
+// Floating hearts background
 const canvas = document.getElementById("hearts");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
 let hearts = [];
-
-function Heart(x, y, size, speed) {
-  this.x = x;
-  this.y = y;
-  this.size = size;
-  this.speed = speed;
-  this.alpha = Math.random() * 0.5 + 0.5;
+function Heart(x, y, s, sp) {
+  this.x = x; this.y = y; this.s = s; this.sp = sp; this.a = Math.random() * 0.5 + 0.5;
 }
-
-Heart.prototype.draw = function () {
+Heart.prototype.draw = function() {
   ctx.save();
   ctx.translate(this.x, this.y);
-  ctx.scale(this.size, this.size);
+  ctx.scale(this.s, this.s);
   ctx.beginPath();
   ctx.moveTo(0, 0);
   ctx.bezierCurveTo(0, -3, -3, -3, -3, 0);
   ctx.bezierCurveTo(-3, 3, 0, 5, 0, 8);
   ctx.bezierCurveTo(0, 5, 3, 3, 3, 0);
   ctx.bezierCurveTo(3, -3, 0, -3, 0, 0);
-  ctx.fillStyle = `rgba(255,105,180,${this.alpha})`;
+  ctx.fillStyle = `rgba(255,105,180,${this.a})`;
   ctx.fill();
   ctx.restore();
 };
-
-Heart.prototype.update = function () {
-  this.y -= this.speed;
-  if (this.y < -10) {
-    this.y = canvas.height + 10;
-    this.x = Math.random() * canvas.width;
-  }
+Heart.prototype.update = function() {
+  this.y -= this.sp;
+  if (this.y < -10) { this.y = canvas.height + 10; this.x = Math.random() * canvas.width; }
   this.draw();
 };
-
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   hearts.forEach(h => h.update());
   requestAnimationFrame(animate);
 }
+for (let i = 0; i < 80; i++) {
+  hearts.push(new Heart(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 0.8 + 0.2, Math.random() * 1 + 0.3));
+}
+animate();
+window.addEventListener("resize", () => {
+  canvas.width = innerWidth; canvas.height = innerHeight;
+});
 
-for (let i = 0; i < 100; i++) {
-  hearts.push(
-    new Heart(
-      Math.random() * canvas.width,
-      Math.random() * canvas.height,
-      Math.random() * 0.8 + 0.2,
-      Math.random() * 1 + 0.2
-    )
-  );
+// Scene flow
+const messages = [
+  {title: "Happy Anniversary, my love 💖", text: "Click next to begin our little journey together 💞"},
+  {title: "From the moment I met you…", text: "I knew my world had just changed forever 🌷"},
+  {title: "Every heartbeat whispers your name", text: "Your smile is my sunrise, your laugh my favorite melody ☀️"},
+  {title: "You are my today and all my tomorrows", text: "Each moment with you is my happiest memory 💫"},
+  {title: "Forever yours ❤️", text: "No matter where life takes us — my heart will always find you."}
+];
+
+let index = 0;
+const scene = document.getElementById("scene");
+const nextBtn = document.getElementById("nextBtn");
+const backBtn = document.getElementById("backBtn");
+
+function updateScene() {
+  scene.style.opacity = 0;
+  setTimeout(() => {
+    scene.innerHTML = `<h1>${messages[index].title}</h1><p>${messages[index].text}</p>`;
+    scene.style.opacity = 1;
+    backBtn.disabled = index === 0;
+    nextBtn.disabled = index === messages.length - 1;
+  }, 400);
 }
 
-animate();
+nextBtn.onclick = () => {
+  if (index < messages.length - 1) index++;
+  updateScene();
+};
 
-// Resize canvas dynamically
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
+backBtn.onclick = () => {
+  if (index > 0) index--;
+  updateScene();
+};
