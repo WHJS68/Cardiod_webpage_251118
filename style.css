@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  height: 100vh;
+  background: radial-gradient(circle at top left, #ff9a9e, #fad0c4);
+  color: white;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  position: relative;
+}
+
+.text {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 0 0 20px #ff5f8f;
+  animation: glow 2s infinite alternate;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+p {
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: #ffe3e3;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px #ff85a2; }
+  to { text-shadow: 0 0 25px #ffb6c1; }
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
