@@ -1,5 +1,6 @@
 /* ---------------  TEXT SCENES --------------- */
 const messages = [
+  { title:"TITLE", text:"TEXT"},
   { title:"Happy Anniversary, my love 💖", text:"Click next to begin our little journey together 💞"},
   { title:"From the moment I met you…", text:"I knew my world had just changed forever 🌷"},
   { title:"Every heartbeat whispers your name", text:"Your smile is my sunrise, your laugh my favorite melody ☀️"},
