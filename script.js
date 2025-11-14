@@ -1,6 +1,5 @@
-/* ---------------  TEXT SCENES --------------- */
+/* --------------- TEXT SCENES --------------- */
 const messages = [
-  { title:"TITLE", text:"TEXT"},
   { title:"Happy Anniversary, my love 💖", text:"Click next to begin our little journey together 💞"},
   { title:"From the moment I met you…", text:"I knew my world had just changed forever 🌷"},
   { title:"Every heartbeat whispers your name", text:"Your smile is my sunrise, your laugh my favorite melody ☀️"},
@@ -8,23 +7,19 @@ const messages = [
   { title:"Forever yours ❤️", text:"As night falls, my heart still shines for you under every star 🌌"}
 ];
 
-/* ---------------  SKY CANVAS --------------- */
+/* --------------- BACKGROUND SKY --------------- */
 const sky = document.createElement("canvas");
 const sctx = sky.getContext("2d");
-sky.style.position="fixed";
-sky.style.inset="0";
-sky.style.zIndex="-3";
+sky.style.position="fixed"; sky.style.inset="0"; sky.style.zIndex="-3";
 document.body.prepend(sky);
-function resize(){ sky.width=innerWidth; sky.height=innerHeight; }
-resize(); addEventListener("resize",resize);
+function resizeSky(){ sky.width=innerWidth; sky.height=innerHeight; }
+resizeSky(); addEventListener("resize",resizeSky);
 
-let skyProg = 0, skyTarget = 0; // 0 = day , 1 = night
-function lerp(a,b,t){ return a+(b-a)*t; }
-function lerpColor(c1,c2,t){
-  return [lerp(c1[0],c2[0],t),lerp(c1[1],c2[1],t),lerp(c1[2],c2[2],t)];
-}
+let skyProg=0, skyTarget=0;
+function lerp(a,b,t){return a+(b-a)*t;}
+function lerpColor(c1,c2,t){return [lerp(c1[0],c2[0],t),lerp(c1[1],c2[1],t),lerp(c1[2],c2[2],t)];}
 function drawSky(){
-  skyProg += (skyTarget - skyProg) * 0.02; // smooth catch-up
+  skyProg += (skyTarget - skyProg)*0.02;
   const dayTop=[255,210,210], nightTop=[10,15,35];
   const dayBot=[255,160,165], nightBot=[5,8,20];
   const top=lerpColor(dayTop,nightTop,skyProg);
@@ -38,33 +33,32 @@ function drawSky(){
 }
 drawSky();
 
-/* ---------------  STARS --------------- */
+/* --------------- STARS --------------- */
 const starsCanvas=document.getElementById("stars");
 const starsCtx=starsCanvas.getContext("2d");
-resizeStars();
-let stars=[];
 function resizeStars(){ starsCanvas.width=innerWidth; starsCanvas.height=innerHeight; }
-addEventListener("resize",resizeStars);
+resizeStars(); addEventListener("resize",resizeStars);
+let stars=[];
 for(let i=0;i<200;i++){
   stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.5,phase:Math.random()*6.28});
 }
-function drawStars(alphaBase){
+let starAlpha=0;
+function drawStars(alpha){
   starsCtx.clearRect(0,0,innerWidth,innerHeight);
   stars.forEach(s=>{
-    const twinkle = 0.5+0.5*Math.sin(Date.now()/500+s.phase);
-    starsCtx.fillStyle=`rgba(255,255,255,${alphaBase*twinkle})`;
+    const twinkle=0.5+0.5*Math.sin(Date.now()/500+s.phase);
+    starsCtx.fillStyle=`rgba(255,255,255,${alpha*twinkle})`;
     starsCtx.beginPath();
     starsCtx.arc(s.x,s.y,s.r,0,Math.PI*2);
     starsCtx.fill();
   });
 }
 
-/* ---------------  HEARTS --------------- */
+/* --------------- HEARTS --------------- */
 const heartsCanvas=document.getElementById("hearts");
 const hctx=heartsCanvas.getContext("2d");
-resizeHearts();
 function resizeHearts(){ heartsCanvas.width=innerWidth; heartsCanvas.height=innerHeight; }
-addEventListener("resize",resizeHearts);
+resizeHearts(); addEventListener("resize",resizeHearts);
 let hearts=[];
 function Heart(x,y,s,sp){this.x=x;this.y=y;this.s=s;this.sp=sp;this.a=Math.random()*0.5+0.5;}
 Heart.prototype.draw=function(){
@@ -93,7 +87,7 @@ function animateHearts(){
 }
 animateHearts();
 
-/* ---------------  SCENE FLOW --------------- */
+/* --------------- SCENE FLOW --------------- */
 let index=0;
 const scene=document.getElementById("scene");
 const nextBtn=document.getElementById("nextBtn");
@@ -108,14 +102,12 @@ function createDots(){
     dots.appendChild(d);
   }
 }
-function updateDots(){
-  [...dots.children].forEach((d,i)=>d.classList.toggle("active",i===index));
-}
+function updateDots(){[...dots.children].forEach((d,i)=>d.classList.toggle("active",i===index));}
 
 function typeEffect(el,text,delay=40){
   el.textContent="";
-  let i=0; const timer=setInterval(()=>{
-    el.textContent+=text[i++]; if(i>=text.length) clearInterval(timer);
+  let i=0;const timer=setInterval(()=>{
+    el.textContent+=text[i++];if(i>=text.length)clearInterval(timer);
   },delay);
 }
 
@@ -130,14 +122,28 @@ function updateScene(){
     backBtn.disabled=index===0;
     nextBtn.disabled=index===messages.length-1;
     updateDots();
-    /* background & stars smooth goals */
-    skyTarget=index/(messages.length-1);            // 0→1 drives gradient
-    drawStars(skyTarget*0.9);                      // star brightness
+    skyTarget=index/(messages.length-1);
+    starAlpha=skyTarget*0.9;
+    drawStars(starAlpha);
   },400);
 }
 
 nextBtn.onclick=()=>{ if(index<messages.length-1) index++; updateScene(); };
 backBtn.onclick=()=>{ if(index>0) index--; updateScene(); };
 
+/* --------------- INTRO MUSIC + START --------------- */
+const intro=document.getElementById("intro");
+const mainContent=document.getElementById("mainContent");
+const startBtn=document.getElementById("startBtn");
+const music=document.getElementById("bgMusic");
+
+startBtn.addEventListener("click",()=>{
+  intro.style.opacity="0";
+  setTimeout(()=>{ intro.style.display="none"; mainContent.classList.remove("hidden"); },1500);
+  music.volume=0.7;
+  music.play();
+});
+
+/* Initialize */
 createDots();
 updateScene();

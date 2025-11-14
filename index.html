@@ -10,7 +10,16 @@
   <canvas id="hearts"></canvas>
   <canvas id="stars"></canvas>
 
-  <div class="container">
+  <!-- Intro Screen -->
+  <div id="intro" class="intro">
+    <div class="intro-content">
+      <h1>Ready to begin our story? 💞</h1>
+      <button id="startBtn">Start Our Journey ❤️</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container hidden" id="mainContent">
     <div id="scene" class="scene">
       <h1>Happy Anniversary, my love 💖</h1>
       <p>Click next to begin our little journey together 💞</p>
@@ -24,6 +33,9 @@
     <div id="dots" class="dots"></div>
   </div>
 
-  <script src="script.js?v=2"></script>
+  <!-- Background music -->
+  <audio id="bgMusic" src="music.mp3" loop></audio>
+
+  <script src="script.js?v=6"></script>
 </body>
 </html>
