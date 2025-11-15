@@ -125,35 +125,70 @@ nextBtn.onclick=()=>{if(index<messages.length-1){index++;updateScene();}};
 backBtn.onclick=()=>{if(index>0){index--;updateScene();}};
 
 /* ----------- MUSIC ----------- */
-const intro=document.getElementById("intro");
-const mainContent=document.getElementById("mainContent");
-const startBtn=document.getElementById("startBtn");
-const music=document.getElementById("bgMusic");
-const playlist=["music/1.mp3","music/2.mp3","music/3.mp3"];
-function getRandomSong(){return playlist[Math.floor(Math.random()*playlist.length)];}
-let currentSong="",isMuted=false;
-function playRandomSong(){
-  const r=getRandomSong();
-  if(r===currentSong&&playlist.length>1)return playRandomSong();
-  currentSong=r;
-  music.src=r;
-  music.volume=0;music.play().then(()=>{
-    let v=0;const f=setInterval(()=>{if(v<0.7&&!isMuted){v+=0.02;music.volume=v;}else clearInterval(f);},100);
-  }).catch(e=>console.warn(e));
+const intro = document.getElementById("intro");
+const mainContent = document.getElementById("mainContent");
+const startBtn = document.getElementById("startBtn");
+const music = document.getElementById("bgMusic");
+
+// 💿 List of songs (just list whatever you upload to /music)
+const playlist = [
+  // "music/song1.mp3",
+  // "music/song2.mp3",
+  // "music/song3.mp3",
+  "music/song1.mp3"
+];
+
+function getRandomSong() {
+  const i = Math.floor(Math.random() * playlist.length);
+  return playlist[i];
 }
-startBtn.onclick=()=>{
-  intro.style.opacity="0";
-  setTimeout(()=>{intro.style.display="none";mainContent.classList.remove("hidden");},1500);
+
+let currentSong = "", isMuted = false;
+
+function playRandomSong() {
+  const random = getRandomSong();
+  if (random === currentSong && playlist.length > 1) return playRandomSong();
+  currentSong = random;
+  music.src = random;
+  music.volume = 0;
+  music.play()
+    .then(() => {
+      let v = 0;
+      const fade = setInterval(() => {
+        if (v < 0.7 && !isMuted) {
+          v += 0.02;
+          music.volume = v;
+        } else clearInterval(fade);
+      }, 100);
+
+      // 🌟 Glow animation when song changes
+      nextSongBtn.classList.add("glow");
+      setTimeout(() => nextSongBtn.classList.remove("glow"), 1000);
+    })
+    .catch(err => console.warn("Audio error:", err));
+}
+
+startBtn.onclick = () => {
+  intro.style.opacity = "0";
+  setTimeout(() => {
+    intro.style.display = "none";
+    mainContent.classList.remove("hidden");
+  }, 1500);
   playRandomSong();
 };
-const muteBtn=document.getElementById("muteBtn");
-const nextSongBtn=document.getElementById("nextSongBtn");
-muteBtn.onclick=()=>{
-  isMuted=!isMuted;
-  music.muted=isMuted;
-  muteBtn.textContent=isMuted?"🔇":"🔊";
+
+const muteBtn = document.getElementById("muteBtn");
+const nextSongBtn = document.getElementById("nextSongBtn");
+
+muteBtn.onclick = () => {
+  isMuted = !isMuted;
+  music.muted = isMuted;
+  muteBtn.textContent = isMuted ? "🔇" : "🔊";
 };
-nextSongBtn.onclick=()=>{playRandomSong();};
+
+nextSongBtn.onclick = () => {
+  playRandomSong();
+};
 
 /* ----------- INIT ----------- */
 createDots();updateScene();
