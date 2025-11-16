@@ -7,12 +7,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <canvas id="hearts"></canvas>
+  <canvas id="background"></canvas>
   <canvas id="stars"></canvas>
 
-  <!-- Intro Screen -->
-  <div id="intro" class="intro">
-    <div class="intro-content">
+  <!-- Sun & Moon -->
+  <div id="sun"></div>
+  <div id="moon"></div>
+
+  <!-- Intro -->
+  <div id="intro" class="overlay">
+    <div class="content">
       <h1>Enter the secret phrase to begin 💞</h1>
       <input type="text" id="secretInput" placeholder="Enter secret..." />
       <button id="startBtn">Start Our Journey ❤️</button>
@@ -20,8 +24,8 @@
     </div>
   </div>
 
-  <!-- Main Content -->
-  <div class="container hidden" id="mainContent">
+  <!-- Main Slides -->
+  <div id="mainContent" class="overlay hidden">
     <div id="scene" class="scene"></div>
 
     <div class="buttons">
@@ -31,24 +35,23 @@
 
     <div id="dots" class="dots"></div>
 
-    <!-- Music Controls -->
     <div class="music-controls">
       <button id="muteBtn">🔊</button>
       <button id="nextSongBtn">🎵 Next Song</button>
     </div>
   </div>
 
-  <!-- Ending Page -->
-  <div id="ending" class="ending hidden">
-    <div class="ending-content">
+  <!-- Ending -->
+  <div id="ending" class="overlay hidden">
+    <div class="content">
       <h1>🌙 The End of Our Journey 💖</h1>
-      <p>But our story will never end...</p>
+      <p>You’re the light that shines even in my darkest night.</p>
       <button id="replayBtn">Replay ❤️</button>
     </div>
   </div>
 
   <audio id="bgMusic" loop></audio>
 
-  <script src="script.js?v=30"></script>
+  <script src="script.js?v=40"></script>
 </body>
 </html>
