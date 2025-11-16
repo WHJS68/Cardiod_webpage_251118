@@ -1,10 +1,12 @@
 /* --------- Story Texts --------- */
-const messages = [
-  { title: "Happy Anniversary, my love 💖", text: "Click next to begin our little journey together 💞" },
-  { title: "From the moment I met you…", text: "I knew my world had just changed forever 🌷" },
-  { title: "Every heartbeat whispers your name", text: "Your smile is my sunrise,\nYour laugh my favorite melody ☀️" },
-  { title: "You are my today and all my tomorrows", text: "Each moment with you is my happiest memory 💫" },
-  { title: "Forever yours ❤️", text: "As night falls, my heart still shines for you under every star 🌌" }
+const messages=[
+  {title:"Shayeri 1",text:"line1 line1 line1 line1 line1\nline2 line2 line2 line2 line2\nline3 line3 line3 line3 line3\nline4 line4 line4 line4 line4\n.\nline5 line5 line5 line5 line5\nline6 line6 line6 line6 line6\nline7 line7 line7 line7 line7\nline8 line8 line8 line8 line8\n.\nline9 line9 line9 line9 line9\nline10 line10 line10 line10 line10\nline11 line11 line11 line11 line11\nline12 line12 line12 line12 line12\n.\nline13 line13 line13 line13 line13\nline14 line14 line14 line14 line14\nline15 line15 line15 line15 line15\nline16 line16 line16 line16 line16\n"},
+  {title:"Shayeri 2",text:"line1 line1 line1 line1 line1\nline2 line2 line2 line2 line2\nline3 line3 line3 line3 line3\nline4 line4 line4 line4 line4\n.\nline5 line5 line5 line5 line5\nline6 line6 line6 line6 line6\nline7 line7 line7 line7 line7\nline8 line8 line8 line8 line8\n.\nline9 line9 line9 line9 line9\nline10 line10 line10 line10 line10\nline11 line11 line11 line11 line11\nline12 line12 line12 line12 line12\n.\nline13 line13 line13 line13 line13\nline14 line14 line14 line14 line14\nline15 line15 line15 line15 line15\nline16 line16 line16 line16 line16\n"},
+  {title:"Shayeri 3",text:"line1 line1 line1 line1 line1\nline2 line2 line2 line2 line2\nline3 line3 line3 line3 line3\nline4 line4 line4 line4 line4\n.\nline5 line5 line5 line5 line5\nline6 line6 line6 line6 line6\nline7 line7 line7 line7 line7\nline8 line8 line8 line8 line8\n.\nline9 line9 line9 line9 line9\nline10 line10 line10 line10 line10\nline11 line11 line11 line11 line11\nline12 line12 line12 line12 line12\n.\nline13 line13 line13 line13 line13\nline14 line14 line14 line14 line14\nline15 line15 line15 line15 line15\nline16 line16 line16 line16 line16\n"},
+  {title:"Shayeri 4",text:"line1 line1 line1 line1 line1\nline2 line2 line2 line2 line2\nline3 line3 line3 line3 line3\nline4 line4 line4 line4 line4\n.\nline5 line5 line5 line5 line5\nline6 line6 line6 line6 line6\nline7 line7 line7 line7 line7\nline8 line8 line8 line8 line8\n.\nline9 line9 line9 line9 line9\nline10 line10 line10 line10 line10\nline11 line11 line11 line11 line11\nline12 line12 line12 line12 line12\n.\nline13 line13 line13 line13 line13\nline14 line14 line14 line14 line14\nline15 line15 line15 line15 line15\nline16 line16 line16 line16 line16\n"},
+  {title:"Shayeri 5",text:"line1 line1 line1 line1 line1\nline2 line2 line2 line2 line2\nline3 line3 line3 line3 line3\nline4 line4 line4 line4 line4\n.\nline5 line5 line5 line5 line5\nline6 line6 line6 line6 line6\nline7 line7 line7 line7 line7\nline8 line8 line8 line8 line8\n.\nline9 line9 line9 line9 line9\nline10 line10 line10 line10 line10\nline11 line11 line11 line11 line11\nline12 line12 line12 line12 line12\n.\nline13 line13 line13 line13 line13\nline14 line14 line14 line14 line14\nline15 line15 line15 line15 line15\nline16 line16 line16 line16 line16\n"},
+  {title:"Shayeri 6",text:"line1 line1 line1 line1 line1\nline2 line2 line2 line2 line2\nline3 line3 line3 line3 line3\nline4 line4 line4 line4 line4\n.\nline5 line5 line5 line5 line5\nline6 line6 line6 line6 line6\nline7 line7 line7 line7 line7\nline8 line8 line8 line8 line8\n.\nline9 line9 line9 line9 line9\nline10 line10 line10 line10 line10\nline11 line11 line11 line11 line11\nline12 line12 line12 line12 line12\n.\nline13 line13 line13 line13 line13\nline14 line14 line14 line14 line14\nline15 line15 line15 line15 line15\nline16 line16 line16 line16 line16\n"},
+  {title:"Shayeri 7",text:"line1 line1 line1 line1 line1\nline2 line2 line2 line2 line2\nline3 line3 line3 line3 line3\nline4 line4 line4 line4 line4\n.\nline5 line5 line5 line5 line5\nline6 line6 line6 line6 line6\nline7 line7 line7 line7 line7\nline8 line8 line8 line8 line8\n.\nline9 line9 line9 line9 line9\nline10 line10 line10 line10 line10\nline11 line11 line11 line11 line11\nline12 line12 line12 line12 line12\n.\nline13 line13 line13 line13 line13\nline14 line14 line14 line14 line14\nline15 line15 line15 line15 line15\nline16 line16 line16 line16 line16\n"}
 ];
 
 /* --------- Sky Gradient --------- */
@@ -173,7 +175,16 @@ replayBtn.onclick=()=>{
 const music=document.getElementById("bgMusic"),
       mute=document.getElementById("muteBtn"),
       nextSong=document.getElementById("nextSongBtn");
-const playlist=["music/1.mp3","music/2.mp3","music/3.mp3","music/4.mp3"];
+const playlist = [
+  "music/song1.mp3",
+  "music/song2.mp3",
+  "music/song3.mp3",
+  "music/song4.mp3",
+  "music/song5.mp3",
+  "music/song6.mp3",
+  "music/song7.mp3",
+  "music/song8.mp3"
+];
 let currentSong="", isMuted=false;
 function getRandomSong(){ return playlist[Math.floor(Math.random()*playlist.length)]; }
 function playRandomSong(){
@@ -196,7 +207,7 @@ nextSong.onclick=()=>playRandomSong();
 
 /* --------- Start Journey --------- */
 startBtn.onclick=()=>{
-  const secret="forever";
+  const secret="wh";
   if(secretInput.value.trim().toLowerCase()!==secret){
     errorMsg.textContent="💔 Wrong phrase, try again!";
     return;
