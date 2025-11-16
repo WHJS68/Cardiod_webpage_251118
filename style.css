@@ -28,23 +28,17 @@ body{
   left:100%;
   width:100px;height:100px;opacity:0;
 }
-
-/* Perfect heart inside moon */
 #moonHeart{
   position:absolute;
   top:50%;left:50%;
   transform:translate(-50%,-50%) scale(1);
-  width:80px;height:70px;
-  background:red;
-  clip-path:polygon(50% 0%, 61% 10%, 70% 20%, 80% 35%, 80% 55%, 50% 90%, 20% 55%, 20% 35%, 30% 20%, 39% 10%);
-  animation:none;
+  width:100px;height:100px;
   opacity:0;
-  transition:opacity 1.5s ease-in-out;
+  transition:opacity 2s ease-in-out;
 }
-
 @keyframes beat {
   0%,100% { transform:translate(-50%,-50%) scale(1); }
-  50% { transform:translate(-50%,-50%) scale(1.15); }
+  50% { transform:translate(-50%,-50%) scale(1.2); }
 }
 
 /* Overlays */
@@ -72,8 +66,13 @@ button:hover{background:rgba(255,255,255,0.4);}
 
 /* Main */
 #mainContent{transition:opacity 2s ease-in-out;}
-.scene h1{font-size:2.2em;margin-bottom:10px;text-shadow:0 0 20px #ff99b9;}
-.scene p{font-size:1.2em;white-space:pre-line;line-height:1.5;color:#fff0f0;}
+.scene h1{
+  font-size:2.2em;margin-bottom:10px;text-shadow:0 0 12px #ffb6c1, 1px 1px 2px black;
+}
+.scene p{
+  font-size:1.2em;white-space:pre-line;line-height:1.5;
+  color:#fff0f0;text-shadow:0 0 8px #ffb6c1, 1px 1px 2px black;
+}
 .buttons{display:flex;justify-content:space-between;margin-top:30px;gap:10px;}
 .dots{display:flex;justify-content:center;gap:8px;margin-top:20px;}
 .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);}

@@ -10,7 +10,7 @@ const messages=[
 ];
 
 /* --------- Sky Gradient --------- */
-const sky = document.getElementById("sky"), ctx = sky.getContext("2d");
+const sky=document.getElementById("sky"),ctx=sky.getContext("2d");
 function resize(){sky.width=innerWidth;sky.height=innerHeight;}
 resize();addEventListener("resize",resize);
 let skyProgress=0,skyTarget=0;
@@ -63,32 +63,21 @@ hearts.forEach(h=>h.update());requestAnimationFrame(animateHearts);}animateHeart
 
 /* --------- Sun & Moon Motion --------- */
 const sun=document.getElementById("sun"),moon=document.getElementById("moon"),moonHeart=document.getElementById("moonHeart");
-let celestialProgress=0;
 function updateCelestial(immediate=false){
   const target=skyTarget;
-  celestialProgress=immediate?target:celestialProgress+(target-celestialProgress)*0.3;
-
-  const sunX=50-celestialProgress*50;
-  const moonX=100-celestialProgress*50;
+  const sunX=50-target*50;
+  const moonX=100-target*50;
   sun.style.left=`calc(${sunX}% - 50px)`;
   moon.style.left=`calc(${moonX}% - 50px)`;
 
-  const sunFade=1-celestialProgress*1.2;
-  const moonFade=celestialProgress;
-  const sunSize=250-celestialProgress*150; // very big intro, normal in slides
-  const moonSize=100+celestialProgress*150; // normal slides, big end
+  const sunFade=1-target*1.2;
+  const moonFade=target;
+  const sunSize=250-target*150;
+  const moonSize=100+target*150;
   sun.style.opacity=Math.max(sunFade,0);
   moon.style.opacity=Math.min(moonFade,1);
   sun.style.width=sun.style.height=`${sunSize}px`;
   moon.style.width=moon.style.height=`${moonSize}px`;
-
-  if(target>0.95){
-    moonHeart.style.opacity=1;
-    moonHeart.style.animation="beat 1.5s infinite ease-in-out";
-  }else{
-    moonHeart.style.opacity=0;
-    moonHeart.style.animation="none";
-  }
 }
 
 /* --------- Scene Flow --------- */
@@ -126,8 +115,20 @@ function fadeSwitch(from,to){
   setTimeout(()=>{from.classList.add("hidden");to.classList.remove("hidden");to.style.opacity="1";},1500);
 }
 function transitionToIntro(){fadeSwitch(main,intro);index=0;skyTarget=0;updateCelestial(true);}
-function transitionToEnding(){fadeSwitch(main,ending);skyTarget=1;updateCelestial(true);}
-replayBtn.onclick=()=>{fadeSwitch(ending,main);skyTarget=0;index=0;updateScene();};
+function transitionToEnding(){
+  fadeSwitch(main,ending);
+  skyTarget=1;updateCelestial(true);
+  setTimeout(()=>{
+    moonHeart.style.opacity=1;
+    moonHeart.style.animation="beat 1.5s infinite ease-in-out";
+  },1200);
+}
+replayBtn.onclick=()=>{
+  moonHeart.style.opacity=0;
+  moonHeart.style.animation="none";
+  fadeSwitch(ending,main);
+  skyTarget=0;index=0;updateScene();updateCelestial(true);
+};
 
 /* --------- Music --------- */
 const music=document.getElementById("bgMusic"),mute=document.getElementById("muteBtn"),nextSong=document.getElementById("nextSongBtn");

@@ -11,11 +11,20 @@
   <canvas id="stars"></canvas>
   <canvas id="hearts"></canvas>
 
+  <!-- Celestial -->
   <div id="sun"></div>
   <div id="moon">
-    <div id="moonHeart"></div>
+    <svg id="moonHeart" viewBox="0 0 100 90">
+      <path d="M50 15 
+               C35 -10, 0 5, 25 40 
+               A25 25 0 0 0 50 75
+               A25 25 0 0 0 75 40
+               C100 5, 65 -10, 50 15 Z" 
+            fill="red" />
+    </svg>
   </div>
 
+  <!-- Intro -->
   <div id="intro" class="overlay">
     <div class="content">
       <h1>Enter the secret phrase to begin 💞</h1>
@@ -25,6 +34,7 @@
     </div>
   </div>
 
+  <!-- Main Slides -->
   <div id="mainContent" class="overlay hidden">
     <div id="scene" class="scene"></div>
 
@@ -41,6 +51,7 @@
     </div>
   </div>
 
+  <!-- Ending -->
   <div id="ending" class="overlay hidden">
     <div class="content">
       <h1>🌙 The End of Our Journey 💖</h1>
@@ -50,6 +61,6 @@
   </div>
 
   <audio id="bgMusic" loop></audio>
-  <script src="script.js?v=70"></script>
+  <script src="script.js?v=71"></script>
 </body>
 </html>
