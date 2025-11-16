@@ -78,7 +78,7 @@ animateHearts();
 
 /* --------- Sun & Moon Motion --------- */
 const sun=document.getElementById("sun"), moon=document.getElementById("moon"), moonHeart=document.getElementById("moonHeart");
-function updateCelestial(immediate=false){
+function updateCelestial(){
   const t=skyTarget;
   const sunX=50-t*50, moonX=100-t*50;
   sun.style.left=`calc(${sunX}% - 50px)`;
@@ -129,7 +129,7 @@ function updateScene(){
     updateDots();
     skyTarget=index/(messages.length-1);
     drawStars(skyTarget*0.9);
-    updateCelestial(true);
+    updateCelestial();
   },200);
 }
 next.onclick=()=>{ index++; updateScene(); };
@@ -154,11 +154,11 @@ function fadeSwitch(from,to){
 }
 function transitionToIntro(){
   fadeSwitch(main,intro);
-  index=0; skyTarget=0; updateCelestial(true);
+  index=0; skyTarget=0; updateCelestial();
 }
 function transitionToEnding(){
   fadeSwitch(main,ending);
-  skyTarget=1; updateCelestial(true);
+  skyTarget=1; updateCelestial();
   setTimeout(()=>{
     moonHeart.style.opacity=1;
     moonHeart.style.animation="beat 1.5s infinite ease-in-out";
@@ -168,7 +168,7 @@ replayBtn.onclick=()=>{
   moonHeart.style.opacity=0;
   moonHeart.style.animation="none";
   fadeSwitch(ending,main);
-  skyTarget=0; index=0; updateScene(); updateCelestial(true);
+  skyTarget=0; index=0; updateScene(); updateCelestial();
 };
 
 /* --------- Music --------- */
@@ -214,11 +214,11 @@ startBtn.onclick=()=>{
   }
   fadeSwitch(intro,main);
   playRandomSong();
-  skyTarget=0; index=0; updateScene(); updateCelestial(true);
+  skyTarget=0; index=0; updateScene(); updateCelestial();
 };
 
 /* --------- Init --------- */
 createDots();
 updateScene();
 drawStars(0);
-updateCelestial(true);
+updateCelestial();
