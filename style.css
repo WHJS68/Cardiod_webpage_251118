@@ -28,13 +28,19 @@ body{
   left:100%;
   width:100px;height:100px;opacity:0;
 }
+
+/* Perfect heart inside moon */
 #moonHeart{
   position:absolute;
   top:50%;left:50%;
   transform:translate(-50%,-50%) scale(1);
-  width:100px;height:100px;
+  width:100px;height:90px;
+  background:red;
+  clip-path:path("M50 15 C35 -10, 0 15, 25 45 A25 25 0 0 0 50 80 A25 25 0 0 0 75 45 C100 15, 65 -10, 50 15 Z");
   opacity:0;
   transition:opacity 2s ease-in-out;
+  animation:none;
+  filter:drop-shadow(0 0 15px rgba(255,0,100,0.7));
 }
 @keyframes beat {
   0%,100% { transform:translate(-50%,-50%) scale(1); }
@@ -50,7 +56,11 @@ body{
   background:transparent;z-index:10;
 }
 .hidden{display:none;opacity:0;}
-.content h1{font-size:2em;text-shadow:0 0 20px white;margin-bottom:20px;}
+.content h1{
+  font-size:2em;
+  text-shadow:0 0 20px #ff99c9, 0 0 30px #ff5f8f;
+  margin-bottom:20px;
+}
 .content input{
   padding:10px 20px;border:none;border-radius:20px;font-size:1em;outline:none;
   text-align:center;margin-bottom:10px;
@@ -67,11 +77,16 @@ button:hover{background:rgba(255,255,255,0.4);}
 /* Main */
 #mainContent{transition:opacity 2s ease-in-out;}
 .scene h1{
-  font-size:2.2em;margin-bottom:10px;text-shadow:0 0 12px #ffb6c1, 1px 1px 2px black;
+  font-size:2.2em;
+  margin-bottom:10px;
+  text-shadow:0 0 15px #ff99c9, 0 0 30px #ff5f8f, 1px 1px 2px black;
 }
 .scene p{
-  font-size:1.2em;white-space:pre-line;line-height:1.5;
-  color:#fff0f0;text-shadow:0 0 8px #ffb6c1, 1px 1px 2px black;
+  font-size:1.2em;
+  white-space:pre-line;
+  line-height:1.5;
+  color:#fff0f0;
+  text-shadow:0 0 10px #ffb6c1, 1px 1px 2px black;
 }
 .buttons{display:flex;justify-content:space-between;margin-top:30px;gap:10px;}
 .dots{display:flex;justify-content:center;gap:8px;margin-top:20px;}
