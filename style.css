@@ -21,64 +21,36 @@ canvas {
 #stars{z-index:-1;}
 
 /* Intro */
-.intro {
+.intro, .ending {
   position:fixed;
   inset:0;
-  background:radial-gradient(circle at top left,#ffb3c1,#ff758f);
   display:flex;
   align-items:center;
   justify-content:center;
   flex-direction:column;
   z-index:10;
+  background:radial-gradient(circle at top left,#ffb3c1,#ff758f);
   transition:opacity 1.5s ease;
 }
-.intro-content h1{
-  font-size:2em;
-  margin-bottom:25px;
-  text-shadow:0 0 20px #fff;
-}
-.intro button{
-  background:white;
-  border:none;
-  color:#ff5f8f;
-  font-size:1.1em;
-  padding:12px 25px;
-  border-radius:25px;
-  cursor:pointer;
-  box-shadow:0 0 10px white;
-  transition:0.3s;
-}
-.intro button:hover{
-  background:#ffe6eb;
-  transform:scale(1.05);
-}
 .hidden{display:none;}
-
-/* Container */
-.container{
-  max-width:600px;
-  padding:20px;
-  animation:fadeIn 2s ease;
+.intro-content h1, .ending-content h1 {
+  font-size:2em;
+  text-shadow:0 0 20px #fff;
+  margin-bottom:25px;
 }
-.scene{
-  min-height:200px;
-  transition:opacity 1s ease;
+.intro-content input {
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  font-size:1em;
+  outline:none;
+  margin-bottom:15px;
+  text-align:center;
 }
-h1{
-  font-size:2.5em;
-  text-shadow:0 0 20px #ff5f8f;
-}
-p{
+#errorMsg {
+  color:#fff3f3;
   margin-top:10px;
-  font-size:1.2em;
-  color:#ffe3e3;
-}
-
-/* Buttons */
-.buttons{
-  margin-top:40px;
-  display:flex;
-  justify-content:space-between;
+  font-size:0.9em;
 }
 button{
   background:rgba(255,255,255,0.2);
@@ -91,6 +63,37 @@ button{
   transition:0.3s;
 }
 button:hover{background:rgba(255,255,255,0.4);}
+.intro button, .ending button {
+  background:white;
+  color:#ff5f8f;
+  border:none;
+  padding:12px 25px;
+  font-size:1.1em;
+  border-radius:25px;
+  margin-top:10px;
+  box-shadow:0 0 10px white;
+}
+.intro button:hover, .ending button:hover{
+  background:#ffe6eb;
+  transform:scale(1.05);
+}
+
+/* Container */
+.container{
+  max-width:600px;
+  padding:20px;
+  animation:fadeIn 2s ease;
+}
+.scene{min-height:200px;transition:opacity 1s ease;}
+h1{font-size:2.5em;text-shadow:0 0 20px #ff5f8f;}
+p{margin-top:10px;font-size:1.2em;color:#ffe3e3;white-space:pre-line;line-height:1.5;}
+
+/* Nav Buttons */
+.buttons{
+  margin-top:40px;
+  display:flex;
+  justify-content:space-between;
+}
 button:disabled{opacity:0.4;cursor:not-allowed;}
 
 /* Dots */
@@ -127,39 +130,10 @@ button:disabled{opacity:0.4;cursor:not-allowed;}
   padding:8px 14px;
   border-radius:20px;
   font-size:1em;
-  cursor:pointer;
-  transition:0.3s;
 }
-.music-controls button:hover{
-  background:rgba(255,255,255,0.4);
+@keyframes buttonGlow{
+  0%{box-shadow:0 0 0 rgba(255,255,255,0);}
+  50%{box-shadow:0 0 20px 8px rgba(255,255,255,0.8);}
+  100%{box-shadow:0 0 0 rgba(255,255,255,0);}
 }
-
-/* Animations */
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-@keyframes fadeInUp{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
-}
-.scene h1,.scene p{
-  opacity:0;
-  animation:fadeInUp 1s ease forwards;
-}
-.scene p{animation-delay:0.5s;}
-
-@media(max-width:600px){
-  h1{font-size:1.8em;}
-  p{font-size:1em;}
-  .container{width:90%;padding:10px;}
-  button{font-size:0.9em;padding:8px 16px;}
-  .buttons{flex-direction:column;gap:10px;}
-}
-
-/* Glow when song changes */
-@keyframes buttonGlow {
-  0%   { box-shadow: 0 0 0px rgba(255,255,255,0); }
-  50%  { box-shadow: 0 0 20px 8px rgba(255,255,255,0.8); }
-  100% { box-shadow: 0 0 0px rgba(255,255,255,0); }
-}
-.glow {
-  animation: buttonGlow 1s ease;
-}
+.glow{animation:buttonGlow 1s ease;}

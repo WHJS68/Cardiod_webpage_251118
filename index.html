@@ -13,8 +13,10 @@
   <!-- Intro Screen -->
   <div id="intro" class="intro">
     <div class="intro-content">
-      <h1>Ready to begin our story? 💞</h1>
+      <h1>Enter the secret phrase to begin 💞</h1>
+      <input type="text" id="secretInput" placeholder="Enter secret..." />
       <button id="startBtn">Start Our Journey ❤️</button>
+      <p id="errorMsg"></p>
     </div>
   </div>
 
@@ -36,8 +38,17 @@
     </div>
   </div>
 
+  <!-- Ending Page -->
+  <div id="ending" class="ending hidden">
+    <div class="ending-content">
+      <h1>🌙 The End of Our Journey 💖</h1>
+      <p>But our story will never end...</p>
+      <button id="replayBtn">Replay ❤️</button>
+    </div>
+  </div>
+
   <audio id="bgMusic" loop></audio>
 
-  <script src="script.js?v=20"></script>
+  <script src="script.js?v=30"></script>
 </body>
 </html>
