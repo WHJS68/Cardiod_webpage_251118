@@ -7,10 +7,12 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <canvas id="background"></canvas>
+  <!-- Background layers -->
+  <canvas id="sky"></canvas>
   <canvas id="stars"></canvas>
+  <canvas id="hearts"></canvas>
 
-  <!-- Sun & Moon -->
+  <!-- Celestial bodies -->
   <div id="sun"></div>
   <div id="moon"></div>
 
@@ -24,7 +26,7 @@
     </div>
   </div>
 
-  <!-- Main Slides -->
+  <!-- Main slides -->
   <div id="mainContent" class="overlay hidden">
     <div id="scene" class="scene"></div>
 
@@ -45,13 +47,13 @@
   <div id="ending" class="overlay hidden">
     <div class="content">
       <h1>🌙 The End of Our Journey 💖</h1>
-      <p>You’re the light that shines even in my darkest night.</p>
+      <p>You’re the only light that shines even in my darkest night.</p>
       <button id="replayBtn">Replay ❤️</button>
     </div>
   </div>
 
   <audio id="bgMusic" loop></audio>
 
-  <script src="script.js?v=40"></script>
+  <script src="script.js?v=50"></script>
 </body>
 </html>
