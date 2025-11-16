@@ -10,10 +10,10 @@ const messages=[
 ];
 
 /* --------- Sky Gradient --------- */
-const sky = document.getElementById("sky"), ctx = sky.getContext("2d");
-function resize() { sky.width = innerWidth; sky.height = innerHeight; }
-resize(); addEventListener("resize", resize);
-let skyProgress = 0, skyTarget = 0;
+const sky=document.getElementById("sky"),ctx=sky.getContext("2d");
+function resize(){sky.width=innerWidth;sky.height=innerHeight;}
+resize();addEventListener("resize",resize);
+let skyProgress=0,skyTarget=0;
 function lerp(a,b,t){return a+(b-a)*t;}
 function lerpColor(c1,c2,t){return[c1[0]+(c2[0]-c1[0])*t,c1[1]+(c2[1]-c1[1])*t,c1[2]+(c2[2]-c1[2])*t];}
 function drawSky(){
@@ -22,8 +22,7 @@ function drawSky(){
   const dayBot=[255,170,180],nightBot=[10,10,25];
   const top=lerpColor(dayTop,nightTop,skyProgress),bot=lerpColor(dayBot,nightBot,skyProgress);
   const g=ctx.createLinearGradient(0,0,0,sky.height);
-  g.addColorStop(0,`rgb(${top.join(",")})`);
-  g.addColorStop(1,`rgb(${bot.join(",")})`);
+  g.addColorStop(0,`rgb(${top.join(",")})`);g.addColorStop(1,`rgb(${bot.join(",")})`);
   ctx.fillStyle=g;ctx.fillRect(0,0,sky.width,sky.height);
   requestAnimationFrame(drawSky);
 }
@@ -62,14 +61,30 @@ function animateHearts(){hctx.clearRect(0,0,heartsCanvas.width,heartsCanvas.heig
 hearts.forEach(h=>h.update());requestAnimationFrame(animateHearts);}animateHearts();
 
 /* --------- Sun & Moon Motion --------- */
-const sun=document.getElementById("sun"),moon=document.getElementById("moon");
+const sun=document.getElementById("sun"),
+      moon=document.getElementById("moon"),
+      moonHeart=document.getElementById("moonHeart");
 let celestialProgress=0,celestialTarget=0;
 function drawCelestial(){
   celestialProgress+=(celestialTarget-celestialProgress)*0.05;
   const sunX=50-celestialProgress*50,moonX=100-celestialProgress*50;
   sun.style.left=`calc(${sunX}% - 50px)`;
   moon.style.left=`calc(${moonX}% - 50px)`;
-  moon.style.opacity=celestialProgress;
+  const sunFade=1-celestialProgress*1.2;
+  const moonFade=celestialProgress;
+  const sunSize=150-celestialProgress*50;
+  const moonSize=70+celestialProgress*80;
+  sun.style.opacity=Math.max(sunFade,0);
+  moon.style.opacity=Math.min(moonFade,1);
+  sun.style.width=sun.style.height=`${sunSize}px`;
+  moon.style.width=moon.style.height=`${moonSize}px`;
+  if(celestialProgress>0.9){
+    moonHeart.style.opacity=1;
+    moonHeart.style.animation="beat 1.5s infinite ease-in-out";
+  }else{
+    moonHeart.style.opacity=0;
+    moonHeart.style.animation="none";
+  }
   requestAnimationFrame(drawCelestial);
 }
 drawCelestial();
@@ -81,11 +96,8 @@ back=document.getElementById("backBtn"),dots=document.getElementById("dots");
 function createDots(){dots.innerHTML="";messages.forEach((_,i)=>{const d=document.createElement("div");d.className="dot"+(i===index?" active":"");dots.appendChild(d);});}
 function updateDots(){[...dots.children].forEach((d,i)=>d.classList.toggle("active",i===index));}
 function typeEffect(el,text,delay=40){el.innerHTML="";let i=0;const t=setInterval(()=>{el.innerHTML=text.slice(0,i++).replace(/\n/g,"<br>");if(i>text.length)clearInterval(t);},delay);}
-function updateScene(immediate=false){
-  if(index<0){ // Back from first -> Intro
-    transitionToIntro();
-    return;
-  }
+function updateScene(){
+  if(index<0){transitionToIntro();return;}
   scene.style.opacity=0;
   setTimeout(()=>{
     if(index>=messages.length){transitionToEnding();return;}
@@ -93,17 +105,14 @@ function updateScene(immediate=false){
     scene.innerHTML=`<h1>${m.title}</h1><p></p>`;
     const p=scene.querySelector("p");
     scene.style.opacity=1;typeEffect(p,m.text);
-    back.disabled=false;
-    next.disabled=false;
     updateDots();
     skyTarget=index/(messages.length-1);
     celestialTarget=skyTarget;
     drawStars(skyTarget*0.9);
-    if(immediate){skyProgress=skyTarget;celestialProgress=celestialTarget;}
   },300);
 }
-next.onclick=()=>{index++;updateScene(true);};
-back.onclick=()=>{index--;updateScene(true);};
+next.onclick=()=>{index++;updateScene();};
+back.onclick=()=>{index--;updateScene();};
 
 /* --------- Transitions --------- */
 const intro=document.getElementById("intro"),main=document.getElementById("mainContent"),
@@ -114,18 +123,9 @@ function fadeSwitch(from,to){
   from.style.opacity="0";
   setTimeout(()=>{from.classList.add("hidden");to.classList.remove("hidden");to.style.opacity="1";},1500);
 }
-function transitionToIntro(){
-  fadeSwitch(main,intro);
-  index=0;skyTarget=0;celestialTarget=0;
-}
-function transitionToEnding(){
-  fadeSwitch(main,ending);
-  skyTarget=1;celestialTarget=1;
-}
-replayBtn.onclick=()=>{
-  fadeSwitch(ending,main);
-  skyTarget=0;celestialTarget=0;index=0;updateScene(true);
-};
+function transitionToIntro(){fadeSwitch(main,intro);index=0;skyTarget=0;celestialTarget=0;}
+function transitionToEnding(){fadeSwitch(main,ending);skyTarget=1;celestialTarget=1;}
+replayBtn.onclick=()=>{fadeSwitch(ending,main);skyTarget=0;celestialTarget=0;index=0;updateScene();};
 
 /* --------- Music --------- */
 const music=document.getElementById("bgMusic"),mute=document.getElementById("muteBtn"),nextSong=document.getElementById("nextSongBtn");
@@ -159,8 +159,8 @@ startBtn.onclick=()=>{
   if(secretInput.value.trim().toLowerCase()!==secret){errorMsg.textContent="💔 Wrong phrase, try again!";return;}
   fadeSwitch(intro,main);
   playRandomSong();
-  skyTarget=0;celestialTarget=0;index=0;updateScene(true);
+  skyTarget=0;celestialTarget=0;index=0;updateScene();
 };
 
 /* --------- Init --------- */
-createDots();updateScene(true);drawStars(0);drawCelestial();
+createDots();updateScene();drawStars(0);drawCelestial();
