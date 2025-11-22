@@ -122,3 +122,16 @@ button:hover{background:rgba(255,255,255,0.4);}
   .scene h1{font-size:1.8em;}
   .scene p{font-size:1em;}
 }
+
+/* Allow scroll for long texts */
+#mainContent {
+  overflow-y: auto;
+  max-height: 100vh;
+  padding-bottom: 80px; /* space for buttons */
+}
+
+/* Prevent background canvases from scrolling */
+body, html {
+  height: 100%;
+  overflow: hidden;
+}

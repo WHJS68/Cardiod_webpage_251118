@@ -172,9 +172,10 @@ replayBtn.onclick=()=>{
 };
 
 /* --------- Music --------- */
-const music=document.getElementById("bgMusic"),
-      mute=document.getElementById("muteBtn"),
-      nextSong=document.getElementById("nextSongBtn");
+const music = document.getElementById("bgMusic"),
+      mute = document.getElementById("muteBtn"),
+      nextSong = document.getElementById("nextSongBtn");
+
 const playlist = [
   "music/song1.mp3",
   "music/song2.mp3",
@@ -183,27 +184,46 @@ const playlist = [
   "music/song5.mp3",
   "music/song6.mp3",
   "music/song7.mp3",
-  "music/song8.mp3"
+  "music/song8.mp3",
+  "music/song9.mp3"
 ];
-let currentSong="", isMuted=false;
-function getRandomSong(){ return playlist[Math.floor(Math.random()*playlist.length)]; }
-function playRandomSong(){
-  const s=getRandomSong();
-  if(s===currentSong && playlist.length>1) return playRandomSong();
-  currentSong=s; music.src=s; music.volume=0;
-  music.play().then(()=>{
-    let v=0;
-    const fade=setInterval(()=>{
-      if(v<0.7 && !isMuted){ v+=0.02; music.volume=v; }
-      else clearInterval(fade);
-    },100);
+
+let currentIndex = 0;
+let isMuted = false;
+
+function playSong(index) {
+  currentIndex = (index + playlist.length) % playlist.length;
+  music.src = playlist[currentIndex];
+  music.volume = 0;
+  music.play().then(() => {
+    let v = 0;
+    const fade = setInterval(() => {
+      if (v < 0.7 && !isMuted) {
+        v += 0.02;
+        music.volume = v;
+      } else clearInterval(fade);
+    }, 100);
     nextSong.classList.add("glow");
-    setTimeout(()=>nextSong.classList.remove("glow"),1000);
-  }).catch(e=>console.warn(e));
+    setTimeout(() => nextSong.classList.remove("glow"), 1000);
+  }).catch(e => console.warn(e));
 }
-music.addEventListener("ended",()=>playRandomSong());
-mute.onclick=()=>{ isMuted=!isMuted; music.muted=isMuted; mute.textContent=isMuted?"🔇":"🔊"; };
-nextSong.onclick=()=>playRandomSong();
+
+music.addEventListener("ended", () => {
+  currentIndex = (currentIndex + 1) % playlist.length; // go to next
+  playSong(currentIndex);
+});
+
+mute.onclick = () => {
+  isMuted = !isMuted;
+  music.muted = isMuted;
+  mute.textContent = isMuted ? "🔇" : "🔊";
+};
+
+nextSong.onclick = () => {
+  currentIndex = (currentIndex + 1) % playlist.length;
+  playSong(currentIndex);
+};
+
 
 /* --------- Start Journey --------- */
 startBtn.onclick=()=>{
