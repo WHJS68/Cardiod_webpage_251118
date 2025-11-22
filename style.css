@@ -9,6 +9,10 @@ body{
 /* Background Layers */
 #sky,#stars,#hearts{position:fixed;inset:0;z-index:-3;}
 #stars{z-index:-2;}#hearts{z-index:-1;}
+/* Allow clicking through background canvases */
+#sky, #stars, #hearts {
+  pointer-events: none;
+}
 
 /* Celestial */
 #sun,#moon{
@@ -158,4 +162,14 @@ button:hover{background:rgba(255,255,255,0.4);}
 body, html {
   height: 100%;
   overflow: hidden;
+}
+
+/* Start button effect*/
+#startBtn {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 10px #ff99c9; }
+  50% { box-shadow: 0 0 25px #ff5f8f; }
 }
