@@ -66,6 +66,13 @@ body{
   text-shadow:0 0 20px #ff99c9, 0 0 30px #ff5f8f;
   margin-bottom:20px;
 }
+.content p{
+  font-size:1.2em;
+  white-space:pre-line;
+  line-height:1.5;
+  color:#eb86e1;
+  text-shadow:0 0 10px #ffb6c1, 1px 1px 2px black;
+}
 .content input{
   padding:10px 20px;border:none;border-radius:20px;font-size:1em;outline:none;
   text-align:center;margin-bottom:10px;
