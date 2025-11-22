@@ -17,7 +17,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
-  pointer-events: none; /* ✅ makes background click-through */
+  pointer-events: none; /* allow clicking */
 }
 
 #stars { z-index: 1; }
@@ -81,7 +81,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 10; /* ✅ ensures clickable */
+  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -182,36 +182,35 @@ body {
   text-shadow: 0 0 10px #ffb6c1, 1px 1px 2px black;
 }
 
-/* Buttons */
+/* Buttons (fixed bottom, with fade) */
 .buttons {
   position: sticky;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
-  padding: 10px 0;
-  width: 100%;
-  justify-content: space-around;
-  border-radius: 20px;
   display: flex;
+  justify-content: space-around;
   gap: 10px;
+  padding: 15px 0;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.25);
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
   z-index: 5;
+  overflow: hidden;
 }
 
-/* Fading overlay to hide text under the button bar */
+/* fade hiding text behind buttons */
 .buttons::before {
   content: "";
   position: absolute;
-  top: -40px;
+  top: -60px;
   left: 0;
   width: 100%;
-  height: 40px;
-  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.25));
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(255,192,203,0), rgba(0,0,0,0.25));
   pointer-events: none;
 }
 
-
+/* Button styling */
 button {
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid white;
