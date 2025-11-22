@@ -5,25 +5,25 @@
 }
 
 body {
-  overflow: hidden;
   font-family: "Poppins", sans-serif;
   color: white;
   text-align: center;
+  overflow: hidden;
   transition: background 2s ease-in-out;
 }
 
-/* Background Layers */
+/* Backgrounds */
 #sky, #stars, #hearts {
   position: fixed;
   inset: 0;
   z-index: 0;
-  pointer-events: none; /* allow clicking */
+  pointer-events: none;
 }
 
 #stars { z-index: 1; }
 #hearts { z-index: 2; }
 
-/* Celestial */
+/* Sun & Moon */
 #sun, #moon {
   position: fixed;
   border-radius: 50%;
@@ -50,7 +50,6 @@ body {
   opacity: 0;
 }
 
-/* ❤️ Heart Emoji inside Moon */
 #moonHeart {
   position: absolute;
   top: 50%;
@@ -74,18 +73,15 @@ body {
   }
 }
 
-/* Overlay Containers */
+/* Overlay Layouts */
 .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: 10;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   transition: opacity 1s ease;
 }
 
@@ -141,26 +137,23 @@ body {
   animation: pulse 2s infinite ease-in-out;
 }
 
-#startBtn:hover {
-  background: #ff4b91;
-}
-
 @keyframes pulse {
   0%, 100% { box-shadow: 0 0 10px #ff99c9; }
   50% { box-shadow: 0 0 25px #ff5f8f; }
 }
 
-/* Main Scene (scrollable for phones) */
+/* Main Content */
 #mainContent {
   position: relative;
   overflow-y: auto;
   height: 100vh;
-  padding: 80px 20px 100px;
+  padding: 100px 20px 140px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   scroll-behavior: smooth;
+  z-index: 4;
 }
 
 .scene {
@@ -180,37 +173,40 @@ body {
   line-height: 1.5;
   color: #fff0f0;
   text-shadow: 0 0 10px #ffb6c1, 1px 1px 2px black;
+  padding-bottom: 120px; /* ensures text scrolls under buttons */
 }
 
-/* Buttons (fixed bottom, with fade) */
+/* Sticky Button Bar */
 .buttons {
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   gap: 10px;
   padding: 15px 0;
   backdrop-filter: blur(10px);
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.35);
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  z-index: 5;
+  z-index: 10;
   overflow: hidden;
 }
 
-/* fade hiding text behind buttons */
+/* Gradient fade over text just below buttons */
 .buttons::before {
   content: "";
   position: absolute;
-  top: -60px;
+  top: -50px;
   left: 0;
   width: 100%;
-  height: 60px;
-  background: linear-gradient(to bottom, rgba(255,192,203,0), rgba(0,0,0,0.25));
+  height: 50px;
+  background: linear-gradient(to bottom, rgba(255,192,203,0), rgba(0,0,0,0.4));
   pointer-events: none;
 }
 
-/* Button styling */
+/* Buttons */
 button {
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid white;
@@ -249,10 +245,11 @@ button:hover {
 /* Music Controls */
 .music-controls {
   position: fixed;
-  bottom: 20px;
+  bottom: 90px;
   right: 20px;
   display: flex;
   gap: 10px;
+  z-index: 15;
 }
 
 .music-controls button {
@@ -279,19 +276,15 @@ button:hover {
     width: 70px;
     height: 70px;
   }
-
   #intro h1 {
     font-size: 1.5em;
   }
-
   .scene h1 {
     font-size: 1.8em;
   }
-
   .scene p {
     font-size: 1em;
   }
-
   #intro .content {
     width: 85%;
   }

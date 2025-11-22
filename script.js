@@ -240,6 +240,12 @@ startBtn.onclick = () => {
   updateScene();
   updateCelestial();
 };
+// ✅ Allow pressing Enter to start journey
+secretInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    startBtn.click();
+  }
+});
 
 /* --------- Init --------- */
 createDots();
