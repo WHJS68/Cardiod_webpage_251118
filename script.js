@@ -226,15 +226,19 @@ nextSong.onclick = () => {
 
 
 /* --------- Start Journey --------- */
-startBtn.onclick=()=>{
-  const secret="251118"; //Oye! Hacker babes!
-  if(secretInput.value.trim().toLowerCase()!==secret){
-    errorMsg.textContent="💔 Wrong phrase, try again!";
+startBtn.onclick = () => {
+  const secret = "251118"; //Oye! Hacker babes!
+  if (secretInput.value.trim().toLowerCase() !== secret) {
+    errorMsg.textContent = "💔 Wrong phrase, try again!";
     return;
   }
-  fadeSwitch(intro,main);
-  playRandomSong();
-  skyTarget=0; index=0; updateScene(); updateCelestial();
+  fadeSwitch(intro, main);
+  currentIndex = 0;
+  playSong(currentIndex); // ✅ this starts music properly
+  skyTarget = 0;
+  index = 0;
+  updateScene();
+  updateCelestial();
 };
 
 /* --------- Init --------- */

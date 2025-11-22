@@ -125,12 +125,36 @@ button:hover{background:rgba(255,255,255,0.4);}
 
 /* Allow scroll for long texts */
 #mainContent {
+  position: relative;
   overflow-y: auto;
-  max-height: 100vh;
-  padding-bottom: 80px; /* space for buttons */
+  height: 100vh;
+  padding: 80px 20px 100px; /* top+bottom breathing room */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  scroll-behavior: smooth;
 }
 
-/* Prevent background canvases from scrolling */
+/* Scene text centered but scrollable */
+.scene {
+  max-width: 800px;
+  margin-top: 40px;
+}
+
+/* Keep buttons visible on phones */
+.buttons {
+  position: sticky;
+  bottom: 20px;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  padding: 10px 0;
+  width: 100%;
+  justify-content: space-around;
+  border-radius: 20px;
+}
+
+/* Prevent background from scrolling */
 body, html {
   height: 100%;
   overflow: hidden;
