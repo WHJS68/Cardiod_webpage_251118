@@ -205,8 +205,16 @@ replayBtn.onclick=()=>{
 const music=document.getElementById("bgMusic"),
       mute=document.getElementById("muteBtn"),
       nextSong=document.getElementById("nextSongBtn");
-const playlist=[
-  "music/song1.mp3","music/song2.mp3","music/song3.mp3"
+const playlist = [
+  "music/song1.mp3",
+  "music/song2.mp3",
+  "music/song3.mp3",
+  "music/song4.mp3",
+  "music/song5.mp3",
+  "music/song6.mp3",
+  "music/song7.mp3",
+  "music/song8.mp3",
+  "music/song9.mp3"
 ];
 let currentIndex=0,isMuted=false;
 function playSong(index){
