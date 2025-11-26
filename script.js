@@ -259,7 +259,7 @@ secretInput.addEventListener("keydown",(e)=>{
 });
 
 /* --------- Init --------- */
-createDots();
-updateScene();
+// createDots();
+// updateScene();
 drawStars(0);
 updateCelestial();
