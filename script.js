@@ -23,14 +23,18 @@ const storySets = {
 
 // Ensure only the intro is visible on page load
 window.addEventListener("load", () => {
-  document.getElementById("intro").classList.remove("hidden");
-  document.getElementById("mainContent").classList.add("hidden");
-  document.getElementById("ending").classList.add("hidden");
+  const intro = document.getElementById("intro");
+  const main = document.getElementById("mainContent");
+  const ending = document.getElementById("ending");
+
+  intro.classList.remove("hidden");
+  main.classList.add("hidden");
+  ending.classList.add("hidden");
+  ending.style.display = "none";  // fully hidden at start
 });
 
-
 /* --------- Story Texts --------- */
-let messages=[]; // will be filled based on secret
+let messages = []; // will be filled based on secret
 
 /* --------- Sky Gradient --------- */
 const sky = document.getElementById("sky"), ctx = sky.getContext("2d");
@@ -171,16 +175,12 @@ function fadeSwitch(from,to){
   from.style.opacity="0";
   setTimeout(()=>{
     from.classList.add("hidden");
+    from.style.display = "none";
     to.classList.remove("hidden");
+    to.style.display = "flex";
     to.style.opacity="1";
   },1500);
 }
-// function fadeSwitch(hideEl, showEl) {
-//   // hide all overlays first
-//   document.querySelectorAll(".overlay").forEach(o => o.classList.add("hidden"));
-//   hideEl.classList.add("hidden");
-//   showEl.classList.remove("hidden");
-// }
 
 function transitionToIntro(){
   fadeSwitch(main,intro);
@@ -202,90 +202,60 @@ replayBtn.onclick=()=>{
 };
 
 /* --------- Music --------- */
-const music = document.getElementById("bgMusic"),
-      mute = document.getElementById("muteBtn"),
-      nextSong = document.getElementById("nextSongBtn");
-
-const playlist = [
-  "music/song1.mp3",
-  "music/song2.mp3",
-  "music/song3.mp3",
-  "music/song4.mp3",
-  "music/song5.mp3",
-  "music/song6.mp3",
-  "music/song7.mp3",
-  "music/song8.mp3",
-  "music/song9.mp3"
+const music=document.getElementById("bgMusic"),
+      mute=document.getElementById("muteBtn"),
+      nextSong=document.getElementById("nextSongBtn");
+const playlist=[
+  "music/song1.mp3","music/song2.mp3","music/song3.mp3"
 ];
-
-let currentIndex = 0;
-let isMuted = false;
-
-function playSong(index) {
-  currentIndex = (index + playlist.length) % playlist.length;
-  music.src = playlist[currentIndex];
-  music.volume = 0;
-  music.play().then(() => {
-    let v = 0;
-    const fade = setInterval(() => {
-      if (v < 0.7 && !isMuted) {
-        v += 0.02;
-        music.volume = v;
-      } else clearInterval(fade);
-    }, 100);
+let currentIndex=0,isMuted=false;
+function playSong(index){
+  currentIndex=(index+playlist.length)%playlist.length;
+  music.src=playlist[currentIndex];
+  music.volume=0;
+  music.play().then(()=>{
+    let v=0;
+    const fade=setInterval(()=>{
+      if(v<0.7&&!isMuted){v+=0.02;music.volume=v;}else clearInterval(fade);
+    },100);
     nextSong.classList.add("glow");
-    setTimeout(() => nextSong.classList.remove("glow"), 1000);
-  }).catch(e => console.warn(e));
+    setTimeout(()=>nextSong.classList.remove("glow"),1000);
+  }).catch(e=>console.warn(e));
 }
-
-music.addEventListener("ended", () => {
-  currentIndex = (currentIndex + 1) % playlist.length; // go to next
+music.addEventListener("ended",()=>{
+  currentIndex=(currentIndex+1)%playlist.length;
   playSong(currentIndex);
 });
-
-mute.onclick = () => {
-  isMuted = !isMuted;
-  music.muted = isMuted;
-  mute.textContent = isMuted ? "🔇" : "🔊";
+mute.onclick=()=>{
+  isMuted=!isMuted;
+  music.muted=isMuted;
+  mute.textContent=isMuted?"🔇":"🔊";
 };
-
-nextSong.onclick = () => {
-  currentIndex = (currentIndex + 1) % playlist.length;
+nextSong.onclick=()=>{
+  currentIndex=(currentIndex+1)%playlist.length;
   playSong(currentIndex);
 };
-
 
 /* --------- Start Journey --------- */
 let tries=0;
-startBtn.onclick = () => {
-  const entered = secretInput.value.trim().toLowerCase();
-  
-  if (!storySets[entered]) {
-    if (tries%2){
-      errorMsg.textContent = "💔 Wrong phrase, try again!";
-    } else {
-      errorMsg.textContent = "Wrong phrase, try again! 💔";
-    }
-    tries+=1;
-    return;
+startBtn.onclick=()=>{
+  const entered=secretInput.value.trim().toLowerCase();
+  if(!storySets[entered]){
+    errorMsg.textContent=tries%2?"💔 Wrong phrase, try again!":"Wrong phrase, try again! 💔";
+    tries++;return;
   }
-
-  messages = storySets[entered]; // load the matching story
-  fadeSwitch(intro, main);
-  currentIndex = 0;
+  messages=storySets[entered];
+  fadeSwitch(intro,main);
+  currentIndex=0;
   playSong(currentIndex);
-  skyTarget = 0;
-  index = 0;
+  skyTarget=0;
+  index=0;
   createDots();
   updateScene();
   updateCelestial();
 };
-
-// ✅ Allow pressing Enter to start journey
-secretInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    startBtn.click();
-  }
+secretInput.addEventListener("keydown",(e)=>{
+  if(e.key==="Enter"){startBtn.click();}
 });
 
 /* --------- Init --------- */
